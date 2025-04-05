@@ -27,6 +27,8 @@ const startPegY = 100;
 
 const pegSize = 20;
 
+const restitution = 0.8;
+
 let marbles = [];
 
 // Create ground (static object)
@@ -44,7 +46,7 @@ function rgbToHex(r, g, b) {
 const createPeg = (x, y, size, probability) => {
     const red = Math.floor(probability * 255);
     const color = rgbToHex(red,0,255 - red);
-    return Matter.Bodies.rectangle(x,y,size * 2, size,{
+    return Matter.Bodies.rectangle(x,y,size * 1.6, size,{
         isStatic: true,
         render: { fillStyle: color },
         bounceRightProbability: probability,
@@ -54,9 +56,25 @@ const createPeg = (x, y, size, probability) => {
 // Create a peg with a bounce probability
 let pegs = [];
 
+let probs = [
+  0.5, 0.9, 0.1, 0.5, 0.99, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+];
+
+let probNum = 0;
+
+for (let i = 0; i < 36; i++) {
+  probs[i] = Math.random();
+}
+
 for (let i = 0; i < 8; i++) {
     for (let j = 0; j < i + 1; j++) {
-        pegs.push(createPeg(startPegX - space * i + space * j * 2, startPegY + 1.5 * space * i, pegSize, Math.random()));
+      pegs.push(createPeg(startPegX - space * i + space * j * 2, startPegY + 1.5 * space * i, pegSize, probs[probNum]));
+      probNum++;
     }
 }
 
@@ -70,7 +88,7 @@ const boundaries = bounds.map(bound => Matter.Bodies.rectangle(bound,550,5,20,{
 // Function to drop a marble
 const dropMarble = () => {
   const marble = Matter.Bodies.circle(400, startPegY - 25, 2, {
-    restitution: 0.8,
+    restitution: restitution,
     render: { fillStyle: "red" },
   });
   Matter.World.add(world, marble);
@@ -119,7 +137,7 @@ let dropInterval;
 // Function to start dropping marbles
 function startDropping() {
   // Set the interval to call dropMarble every 0.5 seconds (500 milliseconds)
-  dropInterval = setInterval(dropMarble, 140);
+  dropInterval = setInterval(dropMarble, 150);
 }
 
 // Function to stop dropping marbles.
@@ -173,4 +191,14 @@ randomizeBtn.addEventListener("click", () => {
 
 initMatter();
 
+//bank
 
+//simple sim
+let sim1 = [
+  0.5, 0.9, 0.1, 0.5, 0.99, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
+];
