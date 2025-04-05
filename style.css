@@ -19,24 +19,24 @@
 
 button {
     display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border: 2px solid #4CAF50; /* Green border */
-    color: #4CAF50; /* Green text */
-    background-color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #89CFF0; /* Light blue border */
+  color: #2E86C1; /* Darker blue text */
+  background-color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
   }
   
   button:hover {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #89CFF0; /* Light blue background on hover */
+  color: white;
   }
   
   button:active {
-    background-color: #3e8e41; /* Darker green */
-    color: white;
+    background-color: #5DADE2; /* Slightly darker blue on active */
+  color: white;
   }
