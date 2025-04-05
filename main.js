@@ -27,6 +27,8 @@ const startPegY = 100;
 
 const pegSize = 20;
 
+let marbles = [];
+
 // Create ground (static object)
 const ground = Matter.Bodies.rectangle(400, 580, 800, 40, {
   isStatic: true,
@@ -72,6 +74,15 @@ const dropMarble = () => {
     render: { fillStyle: "red" },
   });
   Matter.World.add(world, marble);
+  marbles.push(marble);
+};
+
+// Function to clear all marbles
+const clearMarbles = () => {
+  marbles.forEach(marble => {
+    Matter.World.remove(world, marble);
+  });
+  marbles = []; // Clear the marbles array
 };
 
 // Function to determine bounce direction
@@ -108,7 +119,7 @@ let dropInterval;
 // Function to start dropping marbles
 function startDropping() {
   // Set the interval to call dropMarble every 0.5 seconds (500 milliseconds)
-  dropInterval = setInterval(dropMarble, 130);
+  dropInterval = setInterval(dropMarble, 140);
 }
 
 // Function to stop dropping marbles.
@@ -137,11 +148,29 @@ Matter.Runner.run(runner, engine);
 Matter.Render.run(render);
 
 // Drop a marble when clicking
-document.addEventListener("click", dropMarble);
+const dropBtn = document.getElementById("drop-one");
+dropBtn.addEventListener("click",dropMarble);
+
+// Reset button functionality
+const resetBtn = document.getElementById("resetBtn");
+resetBtn.addEventListener("click", () => {
+    clearMarbles();
+});
+
+const randomizeBtn = document.getElementById("randomize");
+randomizeBtn.addEventListener("click", () => {
+  Matter.World.clear(world); //Clear all bodies from world
+    Matter.Engine.clear(engine); //Clear the engine.
+    Matter.Render.stop(render); //stop the renderer.
+    render.canvas.remove(); //remove canvas from DOM.
+    render.canvas = null;
+    render.context = null;
+    render.textures = {};
+    initMatter(); //reinitialize the matter world.
+});
 
 }
 
 initMatter();
 
-const resetBtn = document.getElementById("resetBtn");
-resetBtn.addEventListener("click",initMatter);
+
