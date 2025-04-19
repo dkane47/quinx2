@@ -57,7 +57,7 @@ const createPeg = (x, y, size, probability) => {
 let pegs = [];
 
 let probs = [
-  0.5, 0.9, 0.1, 0.5, 0.99, 0.5, 
+  0.5, 0, 1, 0.5, 0.5, 0.5, 
   0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
   0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
   0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
@@ -143,6 +143,7 @@ function startDropping() {
 // Function to stop dropping marbles.
 function stopDropping() {
   clearInterval(dropInterval);
+  dropInterval = null;
 }
 
 // Event listener for the button click
